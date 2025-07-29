@@ -1,52 +1,24 @@
 import { MetricCards, type Metrice } from "../components/metric-cards";
-import { UsersTable, type User } from "@/components/users-table";
+import { UsersTable } from "@/components/users-table";
 import { Users, DollarSign, CreditCard, Activity } from "lucide-react";
 import { AdBanner } from "@/components/ad-banner";
 import { QuickLinks } from "@/components/quick-links";
-import { getSubscriptionBreakdown, getSubscriptionsCount } from "@/app/admin/actions";
+import { getSubscriptionBreakdown, getSubscriptionsCount, getActiveSubsByPlanPerMonth, getUserCount, getUserList } from "@/app/admin/actions";
 import { ChartPie } from "@/components/chart-pie";
-
-
-const users: User[] = [
-    {
-        id: 1,
-        firstName: 'Allarassem',
-        lastName: 'Maxime',
-        lastSignInAt: 1708423800000,
-        emailAddresses: [
-            {
-                id: 101,
-                emailAddress: 'alla@gmail.com'
-            },
-            {
-                id: 102,
-                emailAddress: 'allah@gmail.com'
-            }
-        ]
-    },
-    {
-        id: 2,
-        firstName: 'Djikoloum',
-        lastName: 'Abel',
-        lastSignInAt: 1708423800000,
-        emailAddresses: [
-            {
-                id: 103,
-                emailAddress: 'abel@gmail.com'
-            }
-        ]
-    }
-]
+import { ChartLine } from "@/components/chart-line";
 
 
 export default async function Home() {
     const subscriptions = await getSubscriptionsCount();
     const subsBreakdown = await getSubscriptionBreakdown();
+    const subsPerMonth = await getActiveSubsByPlanPerMonth();
+    const userCount = await getUserCount();
+    const usersClerk = await getUserList();
     
     const metrics: Metrice[] = [
         {
             title: 'Users',
-            value: 500,
+            value: userCount,
             change:"+60% from last month",
             icon: <Users  className="h-4 w-4 text-muted-foreground"/>
         },
@@ -77,9 +49,9 @@ export default async function Home() {
             <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
             <MetricCards metrics={metrics} />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* <div className="md:col-span-2">
+                <div className="md:col-span-2">
                     <ChartLine data={subsPerMonth} />
-                </div> */}
+                </div>
                 <div className="flex flex-row space-y-4">
                     <AdBanner />
                     <QuickLinks />
@@ -89,7 +61,7 @@ export default async function Home() {
                 <div className="lg:col-span-2">
                     <div className="bg-card rounded-lg p-6 shadow-sm">
                         <h2 className="text-xl font-bold mb-4">Recent Users</h2>
-                        <UsersTable data={users} />
+                        <UsersTable data={usersClerk.data} />
                     </div>
                 </div>
                 <ChartPie data={subsBreakdown} />
