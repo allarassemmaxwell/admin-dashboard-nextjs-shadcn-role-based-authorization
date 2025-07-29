@@ -16,7 +16,7 @@ const sideBarItems: {
     },
     {
         name: 'Users',
-        href: '/users',
+        href: '/admin/users',
         icon: <Users />
     },
     {

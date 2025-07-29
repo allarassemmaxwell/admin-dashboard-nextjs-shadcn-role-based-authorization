@@ -8,13 +8,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { use } from "react";
 export type User = {
     id: number,
     firstName?: string,
     lastName?: string,
     lastSignInAt: number,
-    emailAddresses: {id: number, emailAddress: string, [key: string]: any;}[],
+    emailAddresses: {
+        id: number,
+        emailAddress: string,
+        [key: string]: any;
+    }[],
     [key: string]: any;
 }
 export function UsersTable({data}: {
