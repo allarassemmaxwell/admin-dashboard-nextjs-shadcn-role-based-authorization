@@ -1,17 +1,18 @@
+"use client"
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { sendInvitation, type ActionStatus } from "../actions"
 import { useActionState } from "react";
 import cn from "clsx";
-
 
 export const SendInviteForm = () => {
     const [state, formAction] = useActionState<{
@@ -24,6 +25,7 @@ export const SendInviteForm = () => {
         error: "text-error-500",
         warning: "text-warning-500",
     }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
